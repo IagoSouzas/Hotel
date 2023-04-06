@@ -376,9 +376,9 @@
 
     }
 
-    var Empresas = [];
+   var Empresas = [];
 
-    /*function serviço() {
+    /*function servico() {
         let empresa = prompt('Qual o nome da empresa?');
 
         let ValorAparelho = parseFloat(prompt('Qual o valor por aparelho?'));
@@ -398,26 +398,30 @@
         let minimo = parseInt(prompt('Qual o número mínimo de aparelhos para conseguir o desconto?'));
 
         if (quantidade >= minimo) {
-            alert('O serviço de ' + empresa + ' custará R$ ' + Total)
+            alert('O serviço de ' + empresa + ' custará R$ ' + Total);
 
-            volta();
+            Empresas.push(Total);
         }
 
 
         if (quantidade < minimo) {
-            alert('O serviço de ' + empresa + ' custará R$ ' + ValorAparelho * quantidade)
+            alert('O serviço de ' + empresa + ' custará R$ ' + ValorAparelho * quantidade);
 
-            volta();
+            Empresas.push(ValorAparelho * quantidade);
+
         }
+        volta();
     }
 
     function volta() {
-        let escolha = ('Deseja informar novos dados,' + user + ' (S/N)')
+        let escolha = prompt('Deseja informar novos dados,' + ' (S/N)')
         if (escolha === "S") {
-            serviço();
+            servico();
         }
         if (escolha === "N") {
-
+            console.log(Empresas.reduce(function(prev, current) {
+                return `${prev} + ${current}`;
+            }))
         }
     }*/
 
