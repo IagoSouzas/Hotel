@@ -30,7 +30,7 @@
     function inicio() {
         let sitema = alert('Bem vindo ao Hotel ' + nomeHotel + ", " + user + '. É um imenso prazer ter você por aqui!')
 
-        let escolha = parseInt(prompt('Selecione uma opção: \n - 1 Reserva de Quartos \n - 2 Cadastro de Hóspedes \n - 3 Cadastro \n - 4 Eventos  \n - 5 Buffet \n - 6 Auditório \n - 7 Restaurante \n - 8 Abastecimento \n -  Sair'))
+        let escolha = parseInt(prompt('Selecione uma opção: \n - 1 Reserva de Quartos \n - 2 Cadastro de Hóspedes \n - 3 Cadastro \n - 4 Eventos  \n - 5 Buffet \n - 6 Auditório \n - 7 Restaurante \n - 8 Abastecimento \n - 9 Serviço \n - 10 Sair'))
 
         switch (escolha) {
             case 1:
@@ -58,6 +58,9 @@
                 combustivel();
                 break
             case 9:
+                executa();
+                break
+            case 10:
                 sair();
                 break
 
@@ -119,6 +122,8 @@
                 alert(cadastro + ' cadastrada(o) com sucesso. E paga meia')
             }
             hospedes = hospedes + 1
+            //falta corrigir quando mostrar o valor total
+
 
 
         }
@@ -247,6 +252,20 @@
             alert('Quantidade de convidados superior à capacidade máxima')
             inicio();
         }
+        if (auditorio <= 150) {
+            alert('Use o auditório Laranja')
+
+            let escolha = prompt("Gostaria de efetuar a reserva? S/N")
+
+            if (escolha === "S") {
+                alert(user + ', reserva efetuada com sucesso.')
+                inicio();
+            }
+            else if (escolha === "N") {
+                alert(user + ', reserva não efetuada.')
+                inicio();
+            }
+        }
         else if (auditorio <= 220) {
             alert(`Use o auditório Laranja (inclua mais ${220 - auditorio} cadeiras)`)
 
@@ -277,14 +296,6 @@
         }
     }
 
-    function sair() {
-        var confirma = confirm('Você deseja sair?');
-        if (confirma) {
-            window.close();
-        } else {
-            inicio();
-        }
-    }
 
     function restaurante() {
 
@@ -324,6 +335,8 @@
                 let empresa_nome = prompt('Qual o nome da empresa?')
 
                 alert('Restaurante reservado para ' + empresa_nome + '. ' + reserva + ' às ' + hora + 'hs.')
+
+
             }
         }
         function horas_fim() {
@@ -335,6 +348,8 @@
                 let empresa_nome = prompt('Qual o nome da empresa?')
 
                 alert('Restaurante reservado para ' + empresa_nome + '. ' + reserva + ' às ' + hora + 'hs.')
+
+                inicio();
             }
         }
 
@@ -374,54 +389,60 @@
 
     }
 
-   var Empresas = [];
+    var Empresas = [];
+    var MenorOrcamento = null;
 
-    /*function servico() {
+    function servico() {
         let empresa = prompt('Qual o nome da empresa?');
 
-        let ValorAparelho = parseFloat(prompt('Qual o valor por aparelho?'));
+        let valor_aparelho = parseFloat(prompt('Qual o valor por aparelho?'));
 
         let quantidade = parseInt(prompt('Qual a quantidade de aparelhos?'));
 
         let desconto = parseFloat(prompt('Qual a porcentagem de desconto?'));
 
-        let porcentagem = desconto / 100;
-
-        let valor_final = ValorAparelho * quantidade;
-
-        let Valor_Desconto = valor_final * porcentagem;
-
-        let Total = valor_final - Valor_Desconto;
-
         let minimo = parseInt(prompt('Qual o número mínimo de aparelhos para conseguir o desconto?'));
 
+        let valor_final = valor_aparelho * quantidade;
         if (quantidade >= minimo) {
-            alert('O serviço de ' + empresa + ' custará R$ ' + Total);
-
-            Empresas.push(Total);
+            let valor_desconto = (desconto / 100) * valor_final;
+            valor_final -= valor_desconto;
         }
 
+        let armazem_empresa = {
+            nome: empresa,
+            valor: valor_final
+        };
+        Empresas.push(armazem_empresa);
 
-        if (quantidade < minimo) {
-            alert('O serviço de ' + empresa + ' custará R$ ' + ValorAparelho * quantidade);
-
-            Empresas.push(ValorAparelho * quantidade);
-
+        if (MenorOrcamento === null || valor_final < MenorOrcamento.valor) {
+            MenorOrcamento = armazem_empresa;
         }
-        volta();
+
+        alert(`O serviço de ${empresa} custará R$ ${valor_final}`);
     }
 
-    function volta() {
-        let escolha = prompt('Deseja informar novos dados,' + ' (S/N)')
-        if (escolha === "S") {
+    function executa() {
+        while (true) {
             servico();
+
+            let escolha = prompt('Deseja informar novos dados? (S/N)');
+            if (escolha.toUpperCase() !== 'S') {
+                break;
+            }
         }
-        if (escolha === "N") {
-            console.log(Empresas.reduce(function(prev, current) {
-                return `${prev} + ${current}`;
-            }))
+
+        alert(`O orçamento de menor valor é o de ${MenorOrcamento.nome} por R$ ${MenorOrcamento.valor}`);
+    }
+
+    function sair() {
+        var confirma = confirm('Você deseja sair?');
+        if (confirma) {
+            window.close();
+        } else {
+            inicio();
         }
-    }*/
+    }
 
     inicio();
 </script>
